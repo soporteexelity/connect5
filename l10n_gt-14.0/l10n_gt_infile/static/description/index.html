@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<section>
+    <h1>Envío de Facturas INFILE</h1>
+</section>
+<section>
+    <h2>Compañía</h2>
+    <h3>Para realizar el envío de Documentos Tributarios Electrónicos (DTE) se requerirá ingresar las credenciales por
+        compañía</h3>
+    <br />
+    <div class="oe_demo">
+        <img src="images/l10n_gt_infile_company_fields.jpg" />
+    </div>
+    <br />
+    <h3>El campo Inicio de Identificador solo es visible en modo desarrollador y puede ser util para determinar el
+        número inicial de la secuencia de identificadores que se enviarán por cada documento.</h3>
+    <h2>Diarios</h2>
+    <h3>Para que se realice el envío de DTE de manera automatica al confirmar una factura, es necesario que el diario
+        seleccionado en la factura tenga habilitada la opción</h3>
+    <br />
+    <div class="oe_demo">
+        <img src="images/l10n_gt_infile_journal.jpg" />
+    </div>
+    <br />
+    <h2>Facturas</h2>
+    <h3>En el caso de que la factura se haya configurado correctamente, al confirmarla se enviará a la SAT por medio de
+        INFILE y este devolverá un archivo xml certificado. En este caso el campo de Estatus INFILE marcará "Enviado con
+        éxito". Así mismo se mostrarán el UUID y el enlace al reporte pdf de la transacción.</h3>
+    <br />
+    <div class="oe_demo">
+        <img src="images/l10n_gt_infile_move1.jpg" />
+    </div>
+    <br />
+    <h3>En caso de encontrarse un error en el procesamiento de la solicitud del lado de INFILE, se mostrará el campo de
+        estatus como "Enviado con errores" en color rojo y se mostrará la lista de errores en el chat.</h3>
+    <br />
+    <div class="oe_demo">
+        <img src="images/l10n_gt_infile_move2.jpg" />
+    </div>
+    <h3>Si el diario seleccionado no admite el envío de facturas, entonces al confirmar la factura el estatus cambiará a
+        "Sin enviar".</h3>
+    <br />
+    <h2>Filtros y grupos</h2>
+    <h3>En la vista de lista de facturas en la barra de búsqueda, se encontrará dentro de los filtros tres opciones
+        correspondientes a los posibles estatus de envío a INFILE. También aparecerá una opción para agrupar por este
+        campo (Estatus INFILE)</h3>
+    <br />
+    <div class="oe_demo">
+        <img src="images/l10n_gt_infile_filters.jpg" style="width: 50%" />
+        <br />
+        <img src="images/l10n_gt_infile_groups.jpg" style="width: 50%" />
+    </div>
+</section>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_partner_cf_gt" model="res.partner">
+        <field name="name">Consumidor Final</field>
+        <field name="is_company" eval="True"/>
+        <field name="zip">010001</field>
+        <field name="vat">CF</field>
+        <field name="city">guatemala</field>
+        <field name="country_id" ref="base.gt"/>
+        <field name="email">CF@example.com</field>
+    </record>
+</odoo>

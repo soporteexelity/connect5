@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="gt_frase_view_tree" model="ir.ui.view">
+        <field name="name">gt.frase.view.tree</field>
+        <field name="model">gt.frase</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="type"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="setting"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="gt_frase_ISR_1" model="gt.frase">
+        <field name="type">1</field>
+        <field name="name">Frase de retención del ISR</field>
+        <field name="code">1</field>
+        <field name="setting">Afiliado al ISR Régimen Sobre las Utilidades de Actividades Lucrativas</field>
+    </record>
+    <record id="gt_frase_ISR_2" model="gt.frase">
+        <field name="type">1</field>
+        <field name="name">Frase de retención del ISR</field>
+        <field name="code">2</field>
+        <field name="setting">Afiliado al ISR Régimen Opcional Simplificado Sobre Ingresos de Actividades Lucrativas (y NO cuenta con una Resolución de la SAT que le permitiría hacer el pago directo y le evitaría ser objeto de retención)</field>
+    </record>
+    <record id="gt_frase_ISR_3" model="gt.frase">
+        <field name="type">1</field>
+        <field name="name">Frase de retención del ISR</field>
+        <field name="code">3</field>
+        <field name="setting">Afiliado al ISR Régimen Opcional Simplificado Sobre Ingresos de Actividades Lucrativas (y SI cuenta con una Resolución de la SAT que le permitiría hacer el pago directo y le evitaría ser objeto de retención)</field>
+    </record>
+    <record id="gt_frase_IVA_1" model="gt.frase">
+        <field name="type">2</field>
+        <field name="name">Frase de retención del IVA</field>
+        <field name="code">1</field>
+        <field name="setting">Es Agente de Retención del IVA</field>
+    </record>
+    <record id="gt_frase_no_fiscal_credit_1" model="gt.frase">
+        <field name="type">3</field>
+        <field name="name">Frase de no genera derecho a crédito fiscal del IVA</field>
+        <field name="code">1</field>
+        <field name="setting">Es pequeño contribuyente del IVA</field>
+    </record>
+    <record id="gt_frase_no_IVA_1" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">1</field>
+        <field name="setting">Exportaciones. Cuando el vendedor exporta bienes o servicios.</field>
+    </record>
+    <record id="gt_frase_no_IVA_2" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">2</field>
+        <field name="setting">Servicios que presten las instituciones fiscalizadas por la Superintendencia de Bancos y las bolsas de valores autorizadas para operar en el país.</field>
+    </record>
+    <record id="gt_frase_no_IVA_3" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">3</field>
+        <field name="setting">Ventas de cooperativas. Cuando una cooperativa le vende bienes o servicios a sus asociados, cooperativas, federaciones, centrales de servicios y confederaciones de cooperativas.</field>
+    </record>
+    <record id="gt_frase_no_IVA_4" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">4</field>
+        <field name="setting">Aportes y donaciones a asociaciones, fundaciones e instituciones, educativas, culturales de asistencia o de servicio social y las religiosas no lucrativas.</field>
+    </record>
+    <record id="gt_frase_no_IVA_5" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">5</field>
+        <field name="setting">Pagos por el derecho de ser miembro y las cuotas periódicas a las asociaciones o instituciones sociales, gremiales, culturales, científicas, educativas y deportivas, así como a los colegios de profesionales y los partidos políticos.</field>
+    </record>
+    <record id="gt_frase_no_IVA_6" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">6</field>
+        <field name="setting">Servicios exentos que prestan las asociaciones, fundaciones e instituciones educativas, de asistencia o de servicio social y las religiosas, y otras.</field>
+    </record>
+    <record id="gt_frase_no_IVA_7" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">7</field>
+        <field name="setting">Venta de activos de Bancos o Sociedades Financieras a las que la Superintendencia de Bancos haya aprobado un plan de regulación o en que exista Junta de Exclusión de activos y pasivos, cuando se transfieran a otros Bancos o sociedades financieras, previa autorización de la Junta Monetaria. Esta exención tendrá validez siempre que la operación no sea para eludir responsabilidades civiles, penales, o de otra naturaleza.</field>
+    </record>
+    <record id="gt_frase_no_IVA_8" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">8</field>
+        <field name="setting">Servicios exentos centros educativos privados en lo que respecta a la matrícula de inscripción, colegiaturas y derechos de examen, de los cursos que tengan autorizados por la autoridad competente.</field>
+    </record>
+    <record id="gt_frase_no_IVA_9" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">9</field>
+        <field name="setting">Medicamentos. Cuando una compañía farmacéutica le vende medicamentos genéricos o antirretrovirales a determinados pacientes</field>
+    </record>
+    <record id="gt_frase_no_IVA_10" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">10</field>
+        <field name="setting">Vehículos: Cuando se vende un vehículo terrestre del modelo de dos o más años anteriores al del año en curso.</field>
+    </record>
+    <record id="gt_frase_no_IVA_11" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">11</field>
+        <field name="setting">Ventas a maquilas. Cuando el vendedor vende bienes o servicios de producción local a empresas calificadas bajo el decreto 29-89. Base legal: artículo 12 bis literal g del decreto 29-89 Ley de Maquila; artículo 11 del Acuerdo Gubernativo 5-2013 Reglamento de la Ley del IVA. Operaciones específicas de maquilas, usuarios de zonas francas y coexportadores. Para los casos de ventas no afectas al IVA que pueden darse entre estos actores. Base legal: artículo 36 bis y 36 ter del Decreto 29-89, Ley de Fomento a la Actividad Exportadora y de Maquila.</field>
+    </record>
+    <record id="gt_frase_no_IVA_12" model="gt.frase">
+        <field name="type">4</field>
+        <field name="name">Frase de exento o no afecto al IVA</field>
+        <field name="code">12</field>
+        <field name="setting">Ventas a zonas francas. Cuando el vendedor vende bienes o servicios de producción local a empresas calificadas bajo el decreto 65-89. Base legal: artículo 22 bis literal e del decreto 29-89 Ley de Zonas Francas Ventas de zonas francas. Por transferencias de mercancías que se realicen dentro y entre zonas francas. Base legal: artículo 22 literal c del Decreto 65-89 Ley de Zonas Francas.</field>
+    </record>
+</odoo>

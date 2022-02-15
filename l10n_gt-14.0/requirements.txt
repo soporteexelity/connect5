@@ -1,0 +1,2 @@
+gt-sat-api==1.5.1
+gt-sat-infile-api==1.2.1
