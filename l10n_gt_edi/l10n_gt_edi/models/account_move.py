@@ -23,6 +23,7 @@ class AccountMove(models.Model):
         comodel_name="gt.dte.type",
         readonly=True,
         states={"draft": [("readonly", False)]},
+        default=lambda self: self.env.company.default_dte_type_id,
     )
     allowed_type_ids = fields.Many2many(
         comodel_name="gt.dte.type",
@@ -47,17 +48,31 @@ class AccountMove(models.Model):
     use_in_sat = fields.Boolean(
         related="journal_id.use_in_sat",
     )
-    sat_posted = fields.Boolean()
+    subscription_number = fields.Integer(
+        string="Numero de Abono",
+    )
+    payment_amount = fields.Integer(
+        compute="_compute_payment_amount",
+        string="Monto Abono",
+    )
+    fcam_invoice = fields.Boolean(
+        compute="_compute_fcam_invoice",
+    )
 
-    def _get_dte_type_id(self):
-        if self.move_type == "out_invoice":
-            return self.company_id.default_dte_type_id
-        elif self.move_type == "out_refound":
-            return self.env.ref("l10n_gt_edi.gt_dte_type_ncre")
+    @api.onchange("dte_type_id")
+    def _compute_fcam_invoice(self):
+        for record in self:
+            if record.dte_type_id.code == "FCAM":
+                record.fcam_invoice = True
+            else:
+                record.fcam_invoice = False
 
-    @api.onchange("company_id", "move_type")
-    def _set_dte_type_from_company(self):
-        self.dte_type_id = self._get_dte_type_id()
+    @api.depends("subscription_number")
+    def _compute_payment_amount(self):
+        for record in self:
+            record.payment_amount = 0
+            if record.subscription_number:
+                record.payment_amount = record.amount_total / record.subscription_number
 
     def partner_dte_requiered_fields(self):
         return {
@@ -202,6 +217,9 @@ class AccountMove(models.Model):
             codigo_moneda=self.currency_id.name,
             fecha_hora_emision=self.emision_datetime.astimezone(timezone(self.env.user.tz)),
             tipo=self.dte_type_id.code,
+            NumeroAbono= self.subscription_number,
+            FechaVencimiento= self.invoice_date_due,
+            MontoAbono= self.payment_amount,
             emisor=emisor,
             receptor=receptor,
             frases=[
@@ -347,13 +365,11 @@ class AccountMove(models.Model):
         )
         self._check_partner_required_fields(self.partner_id)
 
-    def _post(self, soft=True):
+    def action_post(self):
         """Post/Validate the documents"""
-        try:
-            self.action_generate_and_send_xml()
-        except ValidationError:
-            raise
-        return super()._post(soft)
+        res = super().action_post()
+        self.action_generate_and_send_xml()
+        return res
 
     def action_generate_and_send_xml(self, annulled=False):
         """Call the methods to generate a new XML file and try to send it to SAT"""
@@ -367,6 +383,8 @@ class AccountMove(models.Model):
                         "invoice that has not been posted before"
                     )
                 )
+            if not annulled and move.state != "posted":
+                raise ValidationError(_("You can only generate XML for posted invoices"))
             dte = move.generate_dte_annulled() if annulled else move.generate_dte()
             move.generate_dte_xml(dte)
             response = move.send_xml_to_sat(annulled)
@@ -376,6 +394,5 @@ class AccountMove(models.Model):
         """Function to cancel the invoice"""
         self.button_draft()
         res = super().button_cancel()
-        if self.sat_posted:
-            self.action_generate_and_send_xml(annulled=True)
+        self.action_generate_and_send_xml(annulled=True)
         return res

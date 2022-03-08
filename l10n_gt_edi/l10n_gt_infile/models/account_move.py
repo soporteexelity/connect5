@@ -95,15 +95,12 @@ class AccountMove(models.Model):
         """Actions to do after sent in the SAT"""
         if not response.get("res"):
             self._log_infile_errors(response, "error")
-            self._cr.commit()
-            raise ValidationError("Error sending XML to SAT")
+            return
         xml_certified = response["xml"]
         self.infile_xml_uuid = response["uuid"]
         fname = self.get_fname_xml(annulled)
         self.generate_attachment_from_xml_string(xml_certified, fname)
         self.infile_status = "annulled" if annulled else "done"
-        if self.infile_status == "done":
-            self.sat_posted = True  # pylint: disable=attribute-defined-outside-init
 
     def _log_infile_errors(self, result, status):
         errors_list = [error["mensaje_error"] for error in result["errors"]]

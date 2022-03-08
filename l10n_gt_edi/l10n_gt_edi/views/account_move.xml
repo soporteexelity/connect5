@@ -5,6 +5,11 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <field name="invoice_date" position="after">
+                <field name="fcam_invoice" invisible="1"/>
+                <field name="subscription_number" attrs="{'invisible': [('fcam_invoice', '=', False)]}"/>
+                <field name="payment_amount" attrs="{'invisible': [('fcam_invoice', '=', False)]}"/>
+            </field>
             <group id="header_right_group" position="after">
                 <field name="use_in_sat" invisible="1"/>
                 <group string="FEEL" attrs="{'invisible': [('use_in_sat', '=', False)]}">

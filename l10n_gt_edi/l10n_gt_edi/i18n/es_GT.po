@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0-20211018\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-28 02:39+0000\n"
-"PO-Revision-Date: 2021-11-28 02:39+0000\n"
+"POT-Creation-Date: 2021-11-07 02:18+0000\n"
+"PO-Revision-Date: 2021-11-07 02:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,11 +83,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: l10n_gt_edi
-#: model:ir.model,name:l10n_gt_edi.model_gt_dte_type
-msgid "DTE Type"
-msgstr "Tipo de DTE"
-
-#. module: l10n_gt_edi
 #: model:ir.ui.menu,name:l10n_gt_edi.menu_dte_type
 msgid "DTE Types"
 msgstr "Tipos de DTE"
@@ -134,11 +129,6 @@ msgid "Fiscal Information"
 msgstr "Información Fiscal"
 
 #. module: l10n_gt_edi
-#: model:ir.model,name:l10n_gt_edi.model_gt_frase
-msgid "Frase"
-msgstr "Frase"
-
-#. module: l10n_gt_edi
 #: model:ir.model.fields,field_description:l10n_gt_edi.field_account_bank_statement_line__frases_ids
 #: model:ir.model.fields,field_description:l10n_gt_edi.field_account_move__frases_ids
 #: model:ir.model.fields,field_description:l10n_gt_edi.field_account_payment__frases_ids
@@ -160,11 +150,6 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_gt_edi
-#: model:ir.model,name:l10n_gt_edi.model_gt_iva
-msgid "IVA"
-msgstr "IVA"
-
-#. module: l10n_gt_edi
 #: model:ir.model.fields.selection,name:l10n_gt_edi.selection__gt_dte_type__general_move_type__invoice
 msgid "Invoice"
 msgstr "Factura"
@@ -183,7 +168,6 @@ msgstr "Afiliación al IVA"
 
 #. module: l10n_gt_edi
 #: model:ir.model,name:l10n_gt_edi.model_account_journal
-#: model:ir.model.fields,field_description:l10n_gt_edi.field_sale_order__journal_id
 msgid "Journal"
 msgstr "Diario"
 
@@ -244,19 +228,9 @@ msgid "Refund"
 msgstr "Reembolso"
 
 #. module: l10n_gt_edi
-#: model:ir.model,name:l10n_gt_edi.model_sale_order
-msgid "Sales Order"
-msgstr "Pedido de venta"
-
-#. module: l10n_gt_edi
 #: model:ir.model.fields,field_description:l10n_gt_edi.field_gt_frase__setting
 msgid "Scenary"
 msgstr "Escenario"
-
-#. module: l10n_gt_edi
-#: model:res.groups,name:l10n_gt_edi.group_journal_id_sale_order
-msgid "Selecciona Diario en Venta"
-msgstr "Selecciona Diario en Venta"
 
 #. module: l10n_gt_edi
 #: model:ir.model.fields,field_description:l10n_gt_edi.field_account_bank_statement_line__use_in_sat
@@ -301,7 +275,16 @@ msgid "You must set your timezone firts"
 msgstr "Primero debes configurar tu zona horaria"
 
 #. module: l10n_gt_edi
-#: code:addons/l10n_gt_edi/models/account_move.py:0
-#, python-format
-msgid "The partner '%(partner_name)s' is missing the field '%(field_name)s'. Please fill it before sending the invoice to SAT"
-msgstr "Al socio '%(partner_name)s' le falta el campo '%(field_name)s'. Rellenarlo antes de enviar la factura al SAT"
+#: model:ir.model,name:l10n_gt_edi.model_gt_dte_type
+msgid "gt.dte.type"
+msgstr ""
+
+#. module: l10n_gt_edi
+#: model:ir.model,name:l10n_gt_edi.model_gt_frase
+msgid "gt.frase"
+msgstr ""
+
+#. module: l10n_gt_edi
+#: model:ir.model,name:l10n_gt_edi.model_gt_iva
+msgid "gt.iva"
+msgstr ""
