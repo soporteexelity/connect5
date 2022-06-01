@@ -31,7 +31,8 @@
                             <tr>
                                 <th>Tipo</th>
                                 <th>Fecha</th>
-                                <th>Doc</th>
+                                <th>Numero Serie</th>
+                                <th>Numero de Factura</th>
                                 <th>Proveedor</th>
                                 <th>NIT</th>
                                 <th class="text-right">Comp.</th>
@@ -53,6 +54,9 @@
                                 </td>
                                 <td>
                                     <span t-esc="l['fecha']" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['serie']"/>
                                 </td>
                                 <td>
                                     <span t-esc="l['numero']"/>
@@ -95,6 +99,8 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>
+                                </td>
                                 <td>
                                 </td>
                                 <td>

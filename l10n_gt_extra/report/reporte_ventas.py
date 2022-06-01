@@ -61,6 +61,7 @@ class ReporteVentas(models.AbstractModel):
                 tipo = 'ND'
 
             numero = f.name or '-'
+            serial = '-'
 
             # Por si es un diario de rango de facturas
             if f.journal_id.facturas_por_rangos or f.journal_id.usar_referencia:
@@ -76,11 +77,16 @@ class ReporteVentas(models.AbstractModel):
             if 'requiere_resolucion' in f.journal_id.fields_get() and f.journal_id.requiere_resolucion:
                 numero = f.ref
 
+            if f.serial_number or f.number_invoice_xml:
+                numero = f.number_invoice_xml
+                serial = f.serial_number
+
             linea = {
                 'estado': f.state,
                 'tipo': tipo,
                 'fecha': f.date,
                 'numero': numero,
+                'serial': serial,
                 'cliente': f.partner_id.name,
                 'nit': f.partner_id.vat,
                 'compra': 0,

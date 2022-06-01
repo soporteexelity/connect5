@@ -53,9 +53,15 @@ class ReporteCompras(models.AbstractModel):
                 tipo = 'ND'
             if f.partner_id.pequenio_contribuyente:
                 tipo += ' PEQ'
-           
+
             numero = f.ref or ''
-            
+            serie = '-'
+
+            if f.ref and '-' in f.ref:
+                NumeroFacturaNumeroSerie = f.ref.split('-')
+                numero = NumeroFacturaNumeroSerie[1]
+                serie = NumeroFacturaNumeroSerie[0]
+
             # Por si usa factura electrónica
             if 'firma_fel' in f.fields_get() and f.firma_fel:
                 numero = str(f.serie_fel) + '-' + str(f.numero_fel)
@@ -65,6 +71,7 @@ class ReporteCompras(models.AbstractModel):
                 'tipo': tipo,
                 'fecha': f.invoice_date,
                 'numero': numero,
+                'serie': serie,
                 'proveedor': f.partner_id,
                 'compra': 0,
                 'compra_exento': 0,
@@ -88,7 +95,7 @@ class ReporteCompras(models.AbstractModel):
 
                 tipo_linea = f.tipo_gasto or 'mixto'
                 if tipo_linea == 'mixto':
-                    if l.product_id.type == 'product':
+                    if l.product_id.type != 'service':
                         tipo_linea = 'compra'
                     else:
                         tipo_linea = 'servicio'

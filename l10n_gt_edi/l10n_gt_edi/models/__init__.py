@@ -1,6 +1,7 @@
 from . import res_company
 from . import account_journal
 from . import account_move
+from . import account_move_line
 from . import gt_dte_type
 from . import gt_frase
 from . import gt_iva

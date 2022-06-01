@@ -5,12 +5,13 @@ from typing import List, Set
 from gt_sat_api import DTE, AnulacionDTE, Complemento, Direccion, Emisor, Frase, Item, Receptor
 from gt_sat_api.parsers import dte_to_xml, dte_to_xml_annulled
 from pytz import timezone
+from decimal import *
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
-DIGITS = 10
+DIGITS = 2
 
 
 class AccountMove(models.Model):
@@ -31,13 +32,13 @@ class AccountMove(models.Model):
     )
     emision_datetime = fields.Datetime(
         copy=False,
-        readonly=True,
     )
     annulated_datetime = fields.Datetime(
         copy=False,
         readonly=True,
     )
     annulment_reason = fields.Text(
+        string="Razón de anulación",
         copy=False,
     )
     regime = fields.Boolean(
@@ -58,6 +59,11 @@ class AccountMove(models.Model):
     fcam_invoice = fields.Boolean(
         compute="_compute_fcam_invoice",
     )
+    accreditation_date = fields.Datetime(
+        copy=False,
+        readonly=True,
+    )
+    
 
     @api.onchange("dte_type_id")
     def _compute_fcam_invoice(self):
@@ -152,12 +158,14 @@ class AccountMove(models.Model):
         self.ensure_one()
         return [
             Item(
-                bien_o_servicio="B" if line.product_id.type == "consu" else "S",
+                bien_o_servicio="S" if line.product_id.type == "service" else "B",
                 numero_linea=index + 1,
                 cantidad=line.quantity,
                 unidad_medida=line.product_uom_id.name[:3].upper(),
-                descripcion=line.product_id.name,
-                precio_unitario=round(line.price_unit, DIGITS),
+                descripcion=line.modelo,
+                precio_unitario=float(Decimal(line.price_unit).quantize(Decimal("0.01"), rounding = "ROUND_HALF_UP")),
+                MontoGravable=line.monto_gravable,
+                MontoImpuesto=line.impuesto,
                 descuento_porcentual=line.discount,
                 impuestos_rate={
                     tax.code_name: (
@@ -212,6 +220,7 @@ class AccountMove(models.Model):
         receptor = self.generate_dte_receptor()
         items = self.generate_dte_items()
         self.emision_datetime = fields.Datetime.now()
+        self.accreditation_date = fields.Datetime.now()
         return DTE(
             clase_documento="dte",
             codigo_moneda=self.currency_id.name,
@@ -220,6 +229,15 @@ class AccountMove(models.Model):
             NumeroAbono= self.subscription_number,
             FechaVencimiento= self.invoice_date_due,
             MontoAbono= self.payment_amount,
+            CondicionesPago=self.invoice_payment_term_id.name,
+            Vencimiento=self.invoice_date_due,
+            NoOCCliente=self.sale_order_id.name,
+            CodigoCliente=self.partner_id.ref,
+            Transporte=self.transport,
+            NoPedido=self.sale_order_id.name,
+            FechaPedido=self.sale_order_id.date_order,
+            modelo=self.modelo,
+            Agente=self.invoice_user_id.name,
             emisor=emisor,
             receptor=receptor,
             frases=[
@@ -323,6 +341,14 @@ class AccountMove(models.Model):
         """Generate an xml file per invoice and save them on attachments"""
         annulled = isinstance(dte, AnulacionDTE)
         xml_str = dte_to_xml_annulled(dte) if annulled else dte_to_xml(dte)
+        if self.tax_totals_json:
+            if "TotalMontoImpuesto" in xml_str:
+                index_total_monto_impuesto = xml_str.index("TotalMontoImpuesto")
+                index2 = xml_str.index("</dte:TotalImpuestos>")
+                total_monto_impuesto = ("%(ImpuestoTotal)s")  % {"ImpuestoTotal": Decimal(self.amount_tax_signed).quantize(Decimal("0.01"), rounding = "ROUND_HALF_UP")}
+                if self.move_type in ["in_refund", "out_refund"]:
+                    total_monto_impuesto = ("%(ImpuestoTotal)s")  % {"ImpuestoTotal": -(Decimal(self.amount_tax_signed).quantize(Decimal("0.01"), rounding = "ROUND_HALF_UP"))}
+                xml_str = xml_str[:index_total_monto_impuesto+20] + total_monto_impuesto + xml_str[index2-14:]
         fname = self.get_fname_xml(annulled)
         self.generate_attachment_from_xml_string(xml_str, fname)
 
@@ -369,6 +395,7 @@ class AccountMove(models.Model):
         """Post/Validate the documents"""
         res = super().action_post()
         self.action_generate_and_send_xml()
+
         return res
 
     def action_generate_and_send_xml(self, annulled=False):
@@ -383,6 +410,8 @@ class AccountMove(models.Model):
                         "invoice that has not been posted before"
                     )
                 )
+            if move.infile_status == "error" and move.state == "cancel" and move.annulment_reason:
+                annulled=True
             if not annulled and move.state != "posted":
                 raise ValidationError(_("You can only generate XML for posted invoices"))
             dte = move.generate_dte_annulled() if annulled else move.generate_dte()

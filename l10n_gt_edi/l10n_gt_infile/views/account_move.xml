@@ -12,6 +12,10 @@
             <button name="action_post" position="after">
                 <button name="action_generate_and_send_xml" string="Resend XML" type="object" attrs="{'invisible': ['|',('infile_status', '!=', 'error'),('state', '=', 'draft')]}"/>
             </button>
+            <field name="partner_id" position="after">
+                <field name="serial_number" attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"/>
+                <field name="number_invoice_xml" attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"/>
+            </field>
             <field name="emision_datetime" position="after">
                 <field name="infile_status" attrs="{'invisible': [('infile_status', '=', 'error')]}"/>
                 <field name="infile_status" style="color: red;" attrs="{'invisible': [('infile_status', '!=', 'error')]}"/>
