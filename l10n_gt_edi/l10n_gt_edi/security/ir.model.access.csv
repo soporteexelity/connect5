@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-admin_gt_frase,admin_gt_frase,model_gt_frase,account.group_account_manager,1,1,1,1
-admin_gt_dte_type,admin_gt_dte_type,model_gt_dte_type,account.group_account_manager,1,1,1,1
-admin_gt_iva,admin_gt_iva,model_gt_iva,account.group_account_manager,1,1,1,1
-user_gt_frase,user_gt_frase,model_gt_frase,base.group_user,1,0,0,0
-user_gt_dte_type,user_gt_dte_type,model_gt_dte_type,base.group_user,1,0,0,0
-user_gt_iva,user_gt_iva,model_gt_iva,base.group_user,1,0,0,0

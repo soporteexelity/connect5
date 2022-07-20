@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-    <record id="group_journal_id_sale_order" model="res.groups">
-        <field name="name">Selecciona Diario en Venta</field>
-    </record>
-</odoo>
